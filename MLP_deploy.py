@@ -27,7 +27,26 @@ def main():
     </div>
     """
     st.markdown(html_temp, unsafe_allow_html=True)
-    TamCabeca = st.text_input("Qual tipo do cliente?")
+    # customer_type = st.text_input("SELECT TYPE")
+    st.markdown('\n**SELECT THE CUSTOMER TYPE**')
+    customer_type = st.radio('',
+        (
+        '1. Loyal Customer',
+        '2. Disloyal Customer')
+        )
+    
+    st.markdown('**SELECT THE CUSTOMER CLASS**')
+    customer_type = st.radio('',
+        (
+        '1. Business',
+        '2. Eco',
+        '3. Eco Plus')
+        )
+
+
+
+    cls_button = st.button('Classifier')
+
 
 
 if __name__ == '__main__':
