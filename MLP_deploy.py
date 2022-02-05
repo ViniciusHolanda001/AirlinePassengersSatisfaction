@@ -49,14 +49,22 @@ def main():
         '2. Disloyal Customer')
         )
     
-    age = st.radio('')
+    age = st.text_input('Type your age')
+
+    type_of_travel = st.radio('3. SELECT THE TYPE OF TRAVEL',
+        (
+         '1. Personal',
+         '2. Business')
+         )
     
-    customer_class = st.radio('2. SELECT THE CUSTOMER CLASS',
+    customer_class = st.radio('3. SELECT THE CUSTOMER CLASS',
         (
         '1. Business',
         '2. Eco',
         '3. Eco Plus')
         )
+
+    flight_distance = st.radio('')
 
     inflight_wifi_service = st.radio('3. EVALUATE INFLIGHT WIFI SERVICE',
         (
