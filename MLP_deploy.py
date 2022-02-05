@@ -7,7 +7,7 @@ import pandas as pd
 
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
-model = pickle.load(open(os.path.join(os.getcwd(), 'model', 'mlp_model.pkl'), 'rb'))
+model = pickle.load(open(os.path.join(os.getcwd(), 'model', 'Bias_MLP_model.pkl'), 'rb'))
 # output = [0, 0, 2, 3, 4, 3, 1, 5, 3, 5, 5, 4, 3, 4, 4, 5]
 
 # test = np.array([output])
@@ -36,11 +36,20 @@ def main():
     st.markdown(html_temp, unsafe_allow_html=True)
     # customer_type = st.text_input("SELECT TYPE")
     # st.markdown('**SELECT THE CUSTOMER TYPE**')
-    customer_type = st.radio('1. SELECT THE CUSTOMER TYPE',
+
+    gender = st.radio('1. SELECT GENDER',
+        (
+        '1. Male',
+        '2. Female')
+        )
+
+    customer_type = st.radio('2. SELECT THE CUSTOMER TYPE',
         (
         '1. Loyal Customer',
         '2. Disloyal Customer')
         )
+    
+    age = st.radio('')
     
     customer_class = st.radio('2. SELECT THE CUSTOMER CLASS',
         (
