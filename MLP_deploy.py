@@ -49,54 +49,24 @@ def main():
         '2. Disloyal Customer')
         )
     
-    age = st.text_input('Type your age')
+    age = st.text_input('3. Type your age')
 
-    type_of_travel = st.radio('3. SELECT THE TYPE OF TRAVEL',
+    type_of_travel = st.radio('4. SELECT THE TYPE OF TRAVEL',
         (
          '1. Personal',
          '2. Business')
          )
     
-    customer_class = st.radio('3. SELECT THE CUSTOMER CLASS',
+    customer_class = st.radio('5. SELECT THE CUSTOMER CLASS',
         (
         '1. Business',
         '2. Eco',
         '3. Eco Plus')
         )
 
-    flight_distance = st.radio('')
+    flight_distance = st.text_input('6 . Type your flight distance')
 
-    inflight_wifi_service = st.radio('3. EVALUATE INFLIGHT WIFI SERVICE',
-        (
-            1,
-            2,
-            3,
-            4,
-            5
-        )
-        )
-
-    departure_arrival_time_convenient = st.radio('4. EVALUATE TIME CONVENIENT (DEPARTURE/ARRIVAL)',
-        (
-            1,
-            2,
-            3,
-            4,
-            5
-        )
-        )
-    
-    ease_of_online_booking = st.radio('5. EVALUATE EASE OF ONLINE BOOKING',
-        (
-            1,
-            2,
-            3,
-            4,
-            5
-        )
-        )
-    
-    gate_location = st.radio('6. EVALUATE THE GATE LOCATION',
+    inflight_wifi_service = st.radio('7. EVALUATE INFLIGHT WIFI SERVICE',
         (
             1,
             2,
@@ -106,7 +76,27 @@ def main():
         )
         )
 
-    food_and_drink = st.radio('7. EVALUATE THE FOOD AND DRINK',
+    departure_arrival_time_convenient = st.radio('8. EVALUATE TIME CONVENIENT (DEPARTURE/ARRIVAL)',
+        (
+            1,
+            2,
+            3,
+            4,
+            5
+        )
+        )
+    
+    ease_of_online_booking = st.radio('9. EVALUATE EASE OF ONLINE BOOKING',
+        (
+            1,
+            2,
+            3,
+            4,
+            5
+        )
+        )
+    
+    gate_location = st.radio('10. EVALUATE THE GATE LOCATION',
         (
             1,
             2,
@@ -116,7 +106,7 @@ def main():
         )
         )
 
-    online_boarding = st.radio('8. EVALUATE THE ONLINE BOARDING',
+    food_and_drink = st.radio('11. EVALUATE THE FOOD AND DRINK',
         (
             1,
             2,
@@ -126,37 +116,7 @@ def main():
         )
         )
 
-    seat_comfort = st.radio('9. EVALUATE THE SEAT COMFORT',
-        (
-            1,
-            2,
-            3,
-            4,
-            5
-        )
-        )
-    
-    inflight_entertainment = st.radio('10. EVALUATE THE INFLIGHT ENTERTAIMENT',
-        (
-            1,
-            2,
-            3,
-            4,
-            5
-        )
-        )
-    
-    on_board_service = st.radio('11. EVALUATE THE ONBOARD SERVICE',
-        (
-            1,
-            2,
-            3,
-            4,
-            5
-        )
-        )
-    
-    leg_room_service = st.radio('12. EVALUATE THE LEG ROOM SERVICE',
+    online_boarding = st.radio('12. EVALUATE THE ONLINE BOARDING',
         (
             1,
             2,
@@ -166,7 +126,7 @@ def main():
         )
         )
 
-    baggage_handling = st.radio('13. EVALUATE THE BAGGAGE HANDLING',
+    seat_comfort = st.radio('13. EVALUATE THE SEAT COMFORT',
         (
             1,
             2,
@@ -176,7 +136,7 @@ def main():
         )
         )
     
-    checkin_service = st.radio('14. EVALUATE THE CHECK-IN SERVICE',
+    inflight_entertainment = st.radio('14. EVALUATE THE INFLIGHT ENTERTAIMENT',
         (
             1,
             2,
@@ -186,7 +146,7 @@ def main():
         )
         )
     
-    inflight_service = st.radio('15. EVALUATE THE INFLIGHT SERVICE',
+    on_board_service = st.radio('15. EVALUATE THE ONBOARD SERVICE',
         (
             1,
             2,
@@ -196,7 +156,7 @@ def main():
         )
         )
     
-    cleanliness = st.radio('16. EVALUATE THE CLEANLINESS',
+    leg_room_service = st.radio('16. EVALUATE THE LEG ROOM SERVICE',
         (
             1,
             2,
@@ -205,6 +165,51 @@ def main():
             5
         )
         )
+
+    baggage_handling = st.radio('17. EVALUATE THE BAGGAGE HANDLING',
+        (
+            1,
+            2,
+            3,
+            4,
+            5
+        )
+        )
+    
+    checkin_service = st.radio('18. EVALUATE THE CHECK-IN SERVICE',
+        (
+            1,
+            2,
+            3,
+            4,
+            5
+        )
+        )
+    
+    inflight_service = st.radio('19. EVALUATE THE INFLIGHT SERVICE',
+        (
+            1,
+            2,
+            3,
+            4,
+            5
+        )
+        )
+    
+    cleanliness = st.radio('20. EVALUATE THE CLEANLINESS',
+        (
+            1,
+            2,
+            3,
+            4,
+            5
+        )
+        )
+
+    if gender == 'Male':
+        gender = 1
+    else:
+        gender = 0
 
     if customer_type == 'Loyal Customer':
         customer_type = 0
@@ -217,11 +222,19 @@ def main():
         customer_class = 1
     else:
         customer_class = 2
+    
+    if type_of_travel == 'Personal':
+        type_of_travel = 1 
+    else:
+        type_of_travel = 0
 
 
-    clf_data.append([customer_type, customer_class, inflight_wifi_service, departure_arrival_time_convenient,
-    ease_of_online_booking, gate_location, food_and_drink, online_boarding, seat_comfort, inflight_entertainment,
-    on_board_service, leg_room_service, baggage_handling, checkin_service, inflight_service, cleanliness])
+
+    clf_data.append([gender, customer_type, int(age), type_of_travel,
+                    customer_class, int(flight_distance), inflight_wifi_service, departure_arrival_time_convenient,
+                    ease_of_online_booking, gate_location, food_and_drink, online_boarding,
+                    seat_comfort, inflight_entertainment, on_board_service, leg_room_service, baggage_handling,
+                    checkin_service, inflight_service, cleanliness])
 
     if st.button('Classifier'):
         prediction = predict_MLP(clf_data)
