@@ -230,16 +230,12 @@ def main():
     else:
         type_of_travel = 0
 
-
-
     clf_data.append([gender, customer_type, int(age), type_of_travel,
                     customer_class, int(flight_distance), inflight_wifi_service, departure_arrival_time_convenient,
                     ease_of_online_booking, gate_location, food_and_drink, online_boarding,
                     seat_comfort, inflight_entertainment, on_board_service, leg_room_service, baggage_handling,
                     checkin_service, inflight_service, cleanliness, departure_delay_in_minutes])
-    
-    st.write(clf_data)
-
+   
     if st.button('Classifier'):
         prediction = predict_MLP(clf_data)
         if prediction == 1:
