@@ -206,6 +206,8 @@ def main():
         )
         )
 
+    departure_delay_in_minutes = st.text_input('21 . Type your delay in minutes')
+
     if gender == 'Male':
         gender = 1
     else:
@@ -234,7 +236,9 @@ def main():
                     customer_class, int(flight_distance), inflight_wifi_service, departure_arrival_time_convenient,
                     ease_of_online_booking, gate_location, food_and_drink, online_boarding,
                     seat_comfort, inflight_entertainment, on_board_service, leg_room_service, baggage_handling,
-                    checkin_service, inflight_service, cleanliness])
+                    checkin_service, inflight_service, cleanliness, departure_delay_in_minutes])
+    
+    st.write(clf_data)
 
     if st.button('Classifier'):
         prediction = predict_MLP(clf_data)
