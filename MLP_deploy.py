@@ -7,7 +7,7 @@ import pandas as pd
 
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
-model = pickle.load(open(os.path.join(os.getcwd(), 'model', 'mlp_model.pkl'), 'rb'))
+model = pickle.load(open(os.path.join(os.getcwd(), 'model', 'Bias_MLP_model.pkl'), 'rb'))
 # output = [0, 0, 2, 3, 4, 3, 1, 5, 3, 5, 5, 4, 3, 4, 4, 5]
 
 # test = np.array([output])
@@ -36,20 +36,37 @@ def main():
     st.markdown(html_temp, unsafe_allow_html=True)
     # customer_type = st.text_input("SELECT TYPE")
     # st.markdown('**SELECT THE CUSTOMER TYPE**')
-    customer_type = st.radio('1. SELECT THE CUSTOMER TYPE',
+
+    gender = st.radio('1. SELECT GENDER',
+        (
+        '1. Male',
+        '2. Female')
+        )
+
+    customer_type = st.radio('2. SELECT THE CUSTOMER TYPE',
         (
         '1. Loyal Customer',
         '2. Disloyal Customer')
         )
     
-    customer_class = st.radio('2. SELECT THE CUSTOMER CLASS',
+    age = st.text_input('3. Type your age')
+
+    type_of_travel = st.radio('4. SELECT THE TYPE OF TRAVEL',
+        (
+         '1. Personal',
+         '2. Business')
+         )
+    
+    customer_class = st.radio('5. SELECT THE CUSTOMER CLASS',
         (
         '1. Business',
         '2. Eco',
         '3. Eco Plus')
         )
 
-    inflight_wifi_service = st.radio('3. EVALUATE INFLIGHT WIFI SERVICE',
+    flight_distance = st.text_input('6 . Type your flight distance')
+
+    inflight_wifi_service = st.radio('7. EVALUATE INFLIGHT WIFI SERVICE',
         (
             1,
             2,
@@ -59,7 +76,7 @@ def main():
         )
         )
 
-    departure_arrival_time_convenient = st.radio('4. EVALUATE TIME CONVENIENT (DEPARTURE/ARRIVAL)',
+    departure_arrival_time_convenient = st.radio('8. EVALUATE TIME CONVENIENT (DEPARTURE/ARRIVAL)',
         (
             1,
             2,
@@ -69,7 +86,7 @@ def main():
         )
         )
     
-    ease_of_online_booking = st.radio('5. EVALUATE EASE OF ONLINE BOOKING',
+    ease_of_online_booking = st.radio('9. EVALUATE EASE OF ONLINE BOOKING',
         (
             1,
             2,
@@ -79,7 +96,7 @@ def main():
         )
         )
     
-    gate_location = st.radio('6. EVALUATE THE GATE LOCATION',
+    gate_location = st.radio('10. EVALUATE THE GATE LOCATION',
         (
             1,
             2,
@@ -89,7 +106,7 @@ def main():
         )
         )
 
-    food_and_drink = st.radio('7. EVALUATE THE FOOD AND DRINK',
+    food_and_drink = st.radio('11. EVALUATE THE FOOD AND DRINK',
         (
             1,
             2,
@@ -99,7 +116,7 @@ def main():
         )
         )
 
-    online_boarding = st.radio('8. EVALUATE THE ONLINE BOARDING',
+    online_boarding = st.radio('12. EVALUATE THE ONLINE BOARDING',
         (
             1,
             2,
@@ -109,7 +126,7 @@ def main():
         )
         )
 
-    seat_comfort = st.radio('9. EVALUATE THE SEAT COMFORT',
+    seat_comfort = st.radio('13. EVALUATE THE SEAT COMFORT',
         (
             1,
             2,
@@ -119,7 +136,7 @@ def main():
         )
         )
     
-    inflight_entertainment = st.radio('10. EVALUATE THE INFLIGHT ENTERTAIMENT',
+    inflight_entertainment = st.radio('14. EVALUATE THE INFLIGHT ENTERTAIMENT',
         (
             1,
             2,
@@ -129,7 +146,7 @@ def main():
         )
         )
     
-    on_board_service = st.radio('11. EVALUATE THE ONBOARD SERVICE',
+    on_board_service = st.radio('15. EVALUATE THE ONBOARD SERVICE',
         (
             1,
             2,
@@ -139,7 +156,7 @@ def main():
         )
         )
     
-    leg_room_service = st.radio('12. EVALUATE THE LEG ROOM SERVICE',
+    leg_room_service = st.radio('16. EVALUATE THE LEG ROOM SERVICE',
         (
             1,
             2,
@@ -149,7 +166,7 @@ def main():
         )
         )
 
-    baggage_handling = st.radio('13. EVALUATE THE BAGGAGE HANDLING',
+    baggage_handling = st.radio('17. EVALUATE THE BAGGAGE HANDLING',
         (
             1,
             2,
@@ -159,7 +176,7 @@ def main():
         )
         )
     
-    checkin_service = st.radio('14. EVALUATE THE CHECK-IN SERVICE',
+    checkin_service = st.radio('18. EVALUATE THE CHECK-IN SERVICE',
         (
             1,
             2,
@@ -169,7 +186,7 @@ def main():
         )
         )
     
-    inflight_service = st.radio('15. EVALUATE THE INFLIGHT SERVICE',
+    inflight_service = st.radio('19. EVALUATE THE INFLIGHT SERVICE',
         (
             1,
             2,
@@ -179,7 +196,7 @@ def main():
         )
         )
     
-    cleanliness = st.radio('16. EVALUATE THE CLEANLINESS',
+    cleanliness = st.radio('20. EVALUATE THE CLEANLINESS',
         (
             1,
             2,
@@ -188,6 +205,13 @@ def main():
             5
         )
         )
+
+    departure_delay_in_minutes = st.text_input('21 . Type your delay in minutes')
+
+    if gender == 'Male':
+        gender = 1
+    else:
+        gender = 0
 
     if customer_type == 'Loyal Customer':
         customer_type = 0
@@ -200,12 +224,18 @@ def main():
         customer_class = 1
     else:
         customer_class = 2
+    
+    if type_of_travel == 'Personal':
+        type_of_travel = 1 
+    else:
+        type_of_travel = 0
 
-
-    clf_data.append([customer_type, customer_class, inflight_wifi_service, departure_arrival_time_convenient,
-    ease_of_online_booking, gate_location, food_and_drink, online_boarding, seat_comfort, inflight_entertainment,
-    on_board_service, leg_room_service, baggage_handling, checkin_service, inflight_service, cleanliness])
-
+    clf_data.append([gender, customer_type, int(age), type_of_travel,
+                    customer_class, int(flight_distance), inflight_wifi_service, departure_arrival_time_convenient,
+                    ease_of_online_booking, gate_location, food_and_drink, online_boarding,
+                    seat_comfort, inflight_entertainment, on_board_service, leg_room_service, baggage_handling,
+                    checkin_service, inflight_service, cleanliness, departure_delay_in_minutes])
+   
     if st.button('Classifier'):
         prediction = predict_MLP(clf_data)
         if prediction == 1:
